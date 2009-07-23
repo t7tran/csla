@@ -21,6 +21,9 @@ a{text-decoration:none}
 
 /****** BEGIN CONFIGURATIONS ******/
 $logfile = 'access.log'; // path to squid log file
+// at the moment, CSLA only supports default log format. You may need to change the log format to TAB separated for easy parsing
+$separator = "\t"; // log format separator between information elements
+
 $db = 'history.db'; // path to cached file
 $peakHours = array(0, 1, 2, 3, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23); // define peak hours, the rest will be off-peak
 $lastupdate = mktime(17, 0, 0, 6, 25, 2009); // first date of the counter to read from the log
@@ -150,7 +153,7 @@ $max = 10;
 $newLatest = false;
 $newData = false;
 for ($line = $lines -1; $line >= 0; $line--) {
-	list($time,$ip,$type,$size,$method,$url,$username,$server,$mime) = explode("\t", $log[$line]);
+	list($time,$ip,$type,$size,$method,$url,$username,$server,$mime) = explode($separator, $log[$line]);
    if (!$newLatest) $newLatest = $time;
    if (stripos('TCP_HIT/UDP_HIT/TCP_DENIED/UDP_DENIED/TCP_MEM_HIT/', substr($type,0,-4)) !== false) continue;
    if (stripos($server, '/192.168.') !== false) continue;
