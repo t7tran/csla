@@ -18,11 +18,14 @@ a{text-decoration:none}
 </head>
 <body>
 <?php
-$logfile = 'access.log';
-$db = 'history.db';
-$peakHours = array(0, 1, 2, 3, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
-$lastupdate = mktime(17, 0, 0, 6, 25, 2009); // first date of the counter
-$billingCycleStartDate = 22;
+
+/****** BEGIN CONFIGURATIONS ******/
+$logfile = 'access.log'; // path to squid log file
+$db = 'history.db'; // path to cached file
+$peakHours = array(0, 1, 2, 3, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23); // define peak hours, the rest will be off-peak
+$lastupdate = mktime(17, 0, 0, 6, 25, 2009); // first date of the counter to read from the log
+$billingCycleStartDate = 22; // the first day of your billing cycle, the end of billing cycle is x - 1
+/****** END CONFIGURATIONS ******/
 
 function isPeak($h) {
    global $peakHours;
